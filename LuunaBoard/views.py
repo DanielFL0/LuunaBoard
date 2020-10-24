@@ -5,9 +5,9 @@ from flask import request, url_for
 def home():
     return "You are at the home url {}".format(url_for('home'))
 
-@app.route('/boards')
+@app.route('/categories')
 def categories():
-    return "You are at the boards url {}".format(url_for('board'))
+    return "You are at the boards url {}".format(url_for('categories'))
 
 @app.route('/<category>')
 def board(category):
