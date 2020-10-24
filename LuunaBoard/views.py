@@ -11,8 +11,8 @@ def categories():
 
 @app.route('/board/<category>')
 def board(category):
-    return "You are at the board {}, the url is: {}".format(category, url_for('board', category=category))
+    return "You are at the board {}".format(category)
 
 @app.route('/board/<category>/thread/<int:thread_id>')
 def thread(category, thread_id):
-    return "You are at the board {} watching the thread {}, the url is {}".format(category, thread_id, url_for('thread', category=category, thread_id=thread_id))
+    return "You are at the board {} watching the thread {}".format(category, thread_id)
