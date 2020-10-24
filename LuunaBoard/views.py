@@ -1,18 +1,18 @@
 from LuunaBoard import app
-from flask import request, url_for
+from flask import request, url_for, render_template
 
 @app.route('/')
 def home():
-    return "You are at the home url {}".format(url_for('home'))
+    return render_template()
 
 @app.route('/categories')
 def categories():
-    return "You are at the boards url {}".format(url_for('categories'))
+    return render_template()
 
 @app.route('/board/<category>')
 def board(category):
-    return "You are at the board {}".format(category)
+    return render_template()
 
 @app.route('/board/<category>/thread/<int:thread_id>')
 def thread(category, thread_id):
-    return "You are at the board {} watching the thread {}".format(category, thread_id)
+    return render_template()
