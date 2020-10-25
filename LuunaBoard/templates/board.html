@@ -44,7 +44,7 @@
       <ul class="list-unstyled">
         {% for thread in threads %}
           <li class="media">
-            <img src="{{ url_for('static', filename=thread.image) }}" class="mr-3" alt="image">
+            <img src="{{ url_for('static', filename='media/' + thread.image) }}" class="img-thumbnail" alt="image" width="150" height="150">
             <div class="media-body">
               <h5 class="mt-0 mb-1">{{ thread.title }}</h5>
                 {{ thread.content}}
@@ -53,7 +53,7 @@
         {% endfor %}
       </ul>
       <!--Form-->
-      <form method="post">
+      <form method="post" enctype="multipart/form-data">
         <div class="form-group">
           <label for="exampleFormControlInput1">Thread title</label>
           <input type="text" class="form-control" name="title" id="title" required>
@@ -64,7 +64,7 @@
         </div>
         <div class="form-group">
           <label for="exampleFormControlFile1">Choose a file</label>
-          <input type="file" class="form-control-file" id="exampleFormControlFile1">
+          <input type="file" class="form-control-file" name="image" id="image">
         </div>
         <div class="form-group">
           <label for="exampleInputEmail1">Email address</label>
