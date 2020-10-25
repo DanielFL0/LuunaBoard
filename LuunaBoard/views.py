@@ -34,9 +34,23 @@ def board(category):
         return redirect(url_for('board', category=category))
     return render_template('board.html', category=category_result, threads=threads)
 
+def create_comment(comment_content, comment_image, comment_thread_id):
+    comment = Comment(content=comment_content, image=comment_image, thread_id=comment_thread_id)
+    db.session.add(comment)
+    db.session.commit()
+
 @app.route('/board/<int:category>/thread/<int:thread_id>', methods=['POST', 'GET'])
 def thread(category, thread_id):
-    return "Test"
+    category_result = Category.query.filter_by(id=category).first()
+    thread_result = Thread.query.filter_by(id=thread_id).first()
+    comments = Comment.query.filter_by(thread_id=thread_id).all()
+    if request.method == 'POST':
+        content = request.form['content']
+        image = request.files['image']
+        image.save(os.path.join(MEDIA_FOLDER, secure_filename(image.filename)))
+        create_comment(content, image.filename, thread_result.id)
+        return redirect(url_for('thread', category=category, thread_id=thread_id))
+    return render_template('thread.html', category=category_result, thread=thread_result, comments=comments)
 
 @app.route('/about')
 def about():
