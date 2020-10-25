@@ -13,6 +13,7 @@
   </head>
 
   <body>
+    <!--Navbar-->
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
         <a class="navbar-brand" href="{{ url_for('home') }}">Luuna</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,5 +35,17 @@
         </div>
       </nav>
       <!--Rest of code below here-->
+      <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+          <h1 class="display-4">Categories</h1>
+          <p class="lead">Select a category to visit a board</p>
+        </div>
+      </div>
+      <!--Template-->
+      <div class="list-group">
+        {% for category in categories%}
+          <a href="{{ url_for('board', category=category.id) }}" class="list-group-item list-group-item-action">{{ category.name }}</a>
+        {% endfor %}
+      </div>
   </body>
 </html>
