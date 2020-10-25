@@ -14,7 +14,7 @@
 
   <body>
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
-        <a class="navbar-brand" href="#">Luuna</a>
+        <a class="navbar-brand" href="{{ url_for('home') }}">Luuna</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -22,17 +22,35 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="{{ url_for('home') }}">Home<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Categories</a>
+              <a class="nav-link" href="{{ url_for('categories') }}">Categories</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">About</a>
+              <a class="nav-link" href="{{ url_for('about') }}">About</a>
             </li>
           </ul>
         </div>
       </nav>
       <!--Rest of code below here-->
+      <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+          <h1 class="display-4">Latest threads</h1>
+          <p class="lead">Select a thread</p>
+        </div>
+      </div>
+      <!--Template-->
+      <div class="list-group">
+        {% if threads %}
+          {% for thread in threads%}
+            <a href="{{ url_for('thread', category=thread.category_id, thread_id=thread.id) }}" class="list-group-item list-group-item-action">{{ thread.title }}
+            <span class="badge badge-primary badge-pill">{{ thread.replies }}</span></a>
+          {% endfor %}
+        {% else %}
+          <div class="alert alert-danger" role="alert">
+            No threads available!
+          </div>
+        {% endif %}
   </body>
 </html>

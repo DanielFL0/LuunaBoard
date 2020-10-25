@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <!--Dependencies-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+
+    <title>Luuna.org</title>
+
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+        <a class="navbar-brand" href="{{ url_for('home') }}">Luuna</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('home') }}">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('categories') }}">Categories</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('about') }}">About</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <!--Thread path-->
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{{ url_for('categories') }}">Categories</a></li>
+          <li class="breadcrumb-item active" aria-current="page">{{ category.name }}</li>
+        </ol>
+      </nav>     
+      <!--Thread display-->
+      <ul class="list-unstyled">
+        {% for thread in threads %}
+          <li class="media">
+            <img src="{{ url_for('static', filename='media/' + thread.image) }}" class="img-thumbnail" alt="image" width="150" height="150">
+            <div class="media-body">
+              <h5 class="mt-0 mb-1"><a href="{{ url_for('thread', category=thread.category_id, thread_id=thread.id) }}">{{ thread.title }}</a></h5> 
+                {{ thread.content}}<br>
+                Replies: {{ thread.replies }}<br>
+                Date published: {{ thread.date_posted}}
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+      <!--Form-->
+      <form method="post" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="exampleFormControlInput1">Thread title</label>
+          <input type="text" class="form-control" name="title" id="title" required>
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">Content</label>
+          <textarea class="form-control" name="content" id="content" rows="3" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlFile1">Choose a file</label>
+          <input type="file" class="form-control-file" name="image" id="image">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+  </body>
+</html>
