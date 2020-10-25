@@ -4,11 +4,11 @@ from flask_sqlalchemy import SQLAlchemy
 
 class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50), nullable=False)
+    name = db.Column(db.String(50), unique=True, nullable=False)
+    thread_category = db.relationship('Thread', backref='Category', lazy=True)
 
     def __repr__(self):
         return "<Category %r>" % self.name
-
 
 class Thread(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -18,7 +18,6 @@ class Thread(db.Model):
     replies = db.Column(db.Integer, default=0)
     image = db.Column(db.String(100), nullable=False, default='default.jpg')
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=False)
-    category = db.relationship('Category', backref='thread', lazy=True)
     comments = db.relationship('Comment', backref='thread', lazy=True)
 
     def __repr__(self):
