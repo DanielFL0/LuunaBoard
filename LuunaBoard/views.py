@@ -1,5 +1,7 @@
 from LuunaBoard import app
 import os
+import sys
+import platform
 from flask import request, url_for, render_template, redirect
 from werkzeug.utils import secure_filename
 from LuunaBoard import db
@@ -89,6 +91,12 @@ def thread(category, thread_id):
         return redirect(url_for('thread', category=category, thread_id=thread_id))
     return render_template('thread.html', category=category_result, thread=thread_result, comments=comments)
 
+def fetch_system():
+    python_version = sys.version
+    operating_system = platform.platform()
+    return python_version, operating_system
+
 @app.route('/about')
 def about():
-    return render_template('about.html')
+    python_version, operating_system = fetch_system()
+    return render_template('about.html', python_version=python_version, operating_system=operating_system)
