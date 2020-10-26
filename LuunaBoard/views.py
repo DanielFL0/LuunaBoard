@@ -21,7 +21,7 @@ def fetch_repo():
 
 @app.route('/')
 def home():
-    threads = Thread.query.all()[-30:]
+    threads = Thread.query.all()[-10:]
     threads = threads[::-1]
     branch, author, message = fetch_repo()
     return render_template('index.html', threads=threads, branch=branch, author=author, message=message)
