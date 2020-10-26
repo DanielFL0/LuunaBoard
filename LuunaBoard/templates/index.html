@@ -48,7 +48,7 @@
         <div class="list-group w-50 p-1">
           {% if threads %}
             {% for thread in threads%}
-              <a href="{{ url_for('thread', category=thread.category_id, thread_id=thread.id) }}" class="list-group-item list-group-item-action">{{ thread.title }}<span class="badge badge-primary badge-pill">{{ thread.replies }}</span></a>
+              <a href="{{ url_for('thread', category=thread.category_id, thread_id=thread.id) }}" class="list-group-item list-group-item-action">{{ thread.title }}<span class="badge badge-primary">{{ thread.replies }}</span></a>
             {% endfor %}
           {% else %}
             <div class="alert alert-danger" role="alert">
