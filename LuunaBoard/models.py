@@ -26,6 +26,7 @@ class Thread(db.Model):
 class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.String(200), unique=False, nullable=False)
+    date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     image = db.Column(db.String(100), nullable=True)
     email = db.Column(db.String(50), nullable=True)
     thread_id = db.Column(db.Integer, db.ForeignKey('thread.id'), nullable=False)
