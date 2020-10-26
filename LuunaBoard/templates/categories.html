@@ -46,6 +46,7 @@
       <!--Template-->
       <div class="d-flex justify-content-center">
         <div class="list-group w-50 p-1">
+          <a href="#" class="list-group-item list-group-item-action disabled" style="background-color: #e3f2fd;">Categories</a>
           {% if categories %}
             {% for category in categories%}
               <a href="{{ url_for('board', category=category.id) }}" class="list-group-item list-group-item-action">{{ category.name }}</a>

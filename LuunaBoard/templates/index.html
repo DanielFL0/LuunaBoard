@@ -39,14 +39,15 @@
         <!--Rest of code below here-->
       <div class="jumbotron jumbotron-fluid" style="background-image: url({{ url_for('static', filename='media/background_test2.jpg') }});">
         <div class="container">
-          <h1 class="display-4" style="color: white;">Latest threads</h1>
-          <p class="lead" style="color: white;">Select a thread</p>
+          <h1 class="display-4" style="color: white;">Home</h1>
+          <p class="lead" style="color: white;">Welcome to Luuna.org!</p>
         </div>
       </div>
       <!--Template-->
       <div class="d-flex justify-content-center">
         <div class="list-group w-50 p-1">
           {% if threads %}
+          <a href="#" class="list-group-item list-group-item-action disabled" style="background-color: #e3f2fd;">Latest threads</a>
             {% for thread in threads%}
               <a href="{{ url_for('thread', category=thread.category_id, thread_id=thread.id) }}" class="list-group-item list-group-item-action">{{ thread.title }}<span class="badge badge-primary">{{ thread.replies }}</span></a>
             {% endfor %}
@@ -56,6 +57,10 @@
             </div>
           {% endif %}
         </div>
+        <ul class="list-group p-1">
+          <li class="list-group-item" style="background-color: #e3f2fd;"><img src="{{ url_for('static', filename='media/mark-github.svg') }}"> {{ branch }}</li>
+          <li class="list-group-item"><strong>Comment: </strong>{{ message }}<br><strong>Author: </strong>{{author}}</li>
+        </ul>
       </div>
   </body>
 </html>

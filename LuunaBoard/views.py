@@ -1,17 +1,32 @@
 from LuunaBoard import app
 import os
+import sys
+import platform
 from flask import request, url_for, render_template, redirect
 from werkzeug.utils import secure_filename
 from LuunaBoard import db
 from LuunaBoard.models import Category, Thread, Comment
 from LuunaBoard.config import MEDIA_FOLDER
 from LuunaBoard.config import ALLOWED_EXTENSIONS
+from LuunaBoard.config import GITHUB_ACCESS_TOKEN
+from github import Github
+
+def fetch_repo():
+    session = Github(GITHUB_ACCESS_TOKEN)
+    repo = session.get_repo('DanielFL0/LuunaBoard')
+    branch = repo.get_branch(branch='main')
+    branch_sha = branch.commit.sha
+    commit = repo.get_commit(sha=branch_sha)
+    commit_author = commit.commit.author.name
+    commit_message = commit.commit.message
+    return branch_sha, commit_author, commit_message
 
 @app.route('/')
 def home():
-    threads = Thread.query.all()[-30:]
+    threads = Thread.query.all()[-10:]
     threads = threads[::-1]
-    return render_template('index.html', threads=threads)
+    branch, author, message = fetch_repo()
+    return render_template('index.html', threads=threads, branch=branch, author=author, message=message)
 
 @app.route('/categories')
 def categories():
@@ -76,6 +91,12 @@ def thread(category, thread_id):
         return redirect(url_for('thread', category=category, thread_id=thread_id))
     return render_template('thread.html', category=category_result, thread=thread_result, comments=comments)
 
+def fetch_system():
+    python_version = sys.version
+    operating_system = platform.platform()
+    return python_version, operating_system
+
 @app.route('/about')
 def about():
-    return render_template('about.html')
+    python_version, operating_system = fetch_system()
+    return render_template('about.html', python_version=python_version, operating_system=operating_system)
