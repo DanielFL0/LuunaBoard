@@ -45,9 +45,9 @@
       </nav>
       <!--Thread display-->
       <ul class="list-unstyled">
-          <li class="media">
+          <li class="media" style="background-color: #e3f2fd;">
             <img src="{{ url_for('static', filename='media/' + thread.image) }}" class="img-thumbnail" alt="image" width="150" height="150">
-            <div class="media-body">
+            <div class="media-body pl-3">
               <h5 class="mt-0 mb-1">{{ thread.title }}</h5>
                 {{ thread.content}}<br>
                 Date published: {{ thread.date_posted}}
@@ -57,10 +57,10 @@
       <!--Comment display-->
       <ul class="list-unstyled">
         {% for comment in comments %}
-          <li class="media">
+          <li class="media" style="background-color: #e3f2fd;">
             <img src="{{ url_for('static', filename='media/' + comment.image) }}" class="img-thumbnail" alt="image" width="150" height="150">
-            <div class="media-body">
-                {{ comment.id }}<br>
+            <div class="media-body pl-3">
+                <strong>ID: </strong>{{ comment.id }}<br>
                 {{ comment.content}}<br>
                 Date published: {{ comment.date_posted }}
             </div>
