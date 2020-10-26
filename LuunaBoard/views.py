@@ -10,6 +10,7 @@ from LuunaBoard.config import ALLOWED_EXTENSIONS
 @app.route('/')
 def home():
     threads = Thread.query.all()[-30:]
+    threads = threads[::-1]
     return render_template('index.html', threads=threads)
 
 @app.route('/categories')
@@ -31,7 +32,8 @@ def create_thread(thread_title, thread_content, thread_image, thread_category_id
 @app.route('/board/<int:category>', methods=['POST', 'GET'])
 def board(category):
     category_result = Category.query.filter_by(id=category).first()
-    threads = Thread.query.filter_by(category_id=category_result.id).all()
+    threads = Thread.query.filter_by(category_id=category_result.id).all()[-30:]
+    threads = threads[::-1]
     if request.method == 'POST':
         title = request.form['title']
         content = request.form['content']
