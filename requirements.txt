@@ -8,7 +8,7 @@ Flask-SQLAlchemy==2.4.4
 idna==2.10
 itsdangerous==1.1.0
 Jinja2==2.11.2
--e git+https://github.com/DanielFL0/LuunaBoard.git@b9aaf6f70f4970de936333e83713d5349e143e9e#egg=LuunaBoard
+-e .
 MarkupSafe==1.1.1
 mysqlclient==2.0.1
 PyGithub==1.53
