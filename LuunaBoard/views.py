@@ -6,9 +6,7 @@ from flask import request, url_for, render_template, redirect
 from werkzeug.utils import secure_filename
 from LuunaBoard import db
 from LuunaBoard.models import Category, Thread, Comment
-from LuunaBoard.config import MEDIA_FOLDER
 from LuunaBoard.config import ALLOWED_EXTENSIONS
-from LuunaBoard.config import GITHUB_ACCESS_TOKEN
 
 @app.route('/')
 def home():
@@ -43,7 +41,7 @@ def board(category):
         image = request.files['image']
         if allowed_image(image.filename):
             create_thread(title, content, image.filename, category_result.id)
-            image.save(os.path.join(MEDIA_FOLDER, secure_filename(image.filename)))
+            image.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(image.filename)))
         else:
             create_thread(title, content, 'default.jpg', category_result.id)
         return redirect(url_for('board', category=category))
@@ -72,7 +70,7 @@ def thread(category, thread_id):
         email = request.form['email']
         if allowed_image(image.filename):
             create_comment(content, image.filename, email, thread_result.id)
-            image.save(os.path.join(MEDIA_FOLDER, secure_filename(image.filename)))  
+            image.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(image.filename)))  
         else:
             create_comment(content, 'default.jpg', email, thread_result.id)
         update_reply_count(thread_id)               
