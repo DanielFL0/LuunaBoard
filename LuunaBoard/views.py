@@ -9,7 +9,6 @@ from LuunaBoard.models import Category, Thread, Comment
 from LuunaBoard.config import MEDIA_FOLDER
 from LuunaBoard.config import ALLOWED_EXTENSIONS
 from LuunaBoard.config import GITHUB_ACCESS_TOKEN
-from github import Github
 
 def fetch_repo():
     session = Github(GITHUB_ACCESS_TOKEN)
