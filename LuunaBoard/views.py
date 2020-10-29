@@ -10,22 +10,11 @@ from LuunaBoard.config import MEDIA_FOLDER
 from LuunaBoard.config import ALLOWED_EXTENSIONS
 from LuunaBoard.config import GITHUB_ACCESS_TOKEN
 
-def fetch_repo():
-    session = Github(GITHUB_ACCESS_TOKEN)
-    repo = session.get_repo('DanielFL0/LuunaBoard')
-    branch = repo.get_branch(branch='main')
-    branch_sha = branch.commit.sha
-    commit = repo.get_commit(sha=branch_sha)
-    commit_author = commit.commit.author.name
-    commit_message = commit.commit.message
-    return branch_sha, commit_author, commit_message
-
 @app.route('/')
 def home():
     threads = Thread.query.all()[-10:]
     threads = threads[::-1]
-    branch, author, message = fetch_repo()
-    return render_template('index.html', threads=threads, branch=branch, author=author, message=message)
+    return render_template('index.html', threads=threads)
 
 @app.route('/categories')
 def categories():
