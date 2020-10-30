@@ -8,6 +8,7 @@ app = Flask(__name__)
 app.config['SECRET KEY'] = SECRET_KEY
 app.config['SQLALCHEMY_DATABASE_URI'] = DB_CONNECTION
 app.config['UPLOAD_FOLDER'] = MEDIA_FOLDER
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 import LuunaBoard.views
