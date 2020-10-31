@@ -37,6 +37,7 @@ def create_thread(thread_title, thread_content, thread_image, thread_category_id
 
 @app.route('/board/<int:category>', methods=['POST', 'GET'])
 def board(category):
+    message = None
     category_result = Category.query.filter_by(id=category).first()
     threads = Thread.query.filter_by(category_id=category_result.id).all()[-30:]
     threads = threads[::-1]
@@ -44,14 +45,17 @@ def board(category):
         title = request.form['title']
         content = request.form['content']
         image = request.files['image']
-        if allowed_image(image.filename):
-            filename = secure_filename(image.filename)
-            create_thread(title, content, filename, category_result.id)
-            image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        if len(title) > 50 or len(content) > 200:
+            message = "ERROR: Character limit exceeded"
         else:
-            create_thread(title, content, 'default.jpg', category_result.id)
-        return redirect(url_for('board', category=category))
-    return render_template('board.html', category=category_result, threads=threads)
+            if allowed_image(image.filename):
+                filename = secure_filename(image.filename)
+                create_thread(title, content, filename, category_result.id)
+                image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            else:
+                create_thread(title, content, 'default.jpg', category_result.id)
+            return redirect(url_for('board', category=category))
+    return render_template('board.html', category=category_result, threads=threads, message=message)
 
 def create_comment(comment_content, comment_image, comment_email, comment_thread_id):
     comment = Comment(content=comment_content, image=comment_image, email=comment_email, thread_id=comment_thread_id)
@@ -67,6 +71,7 @@ def update_reply_count(thread_id):
 
 @app.route('/board/<int:category>/thread/<int:thread_id>', methods=['POST', 'GET'])
 def thread(category, thread_id):
+    message = None
     category_result = Category.query.filter_by(id=category).first()
     thread_result = Thread.query.filter_by(id=thread_id).first()
     comments = Comment.query.filter_by(thread_id=thread_id).all()
@@ -74,15 +79,18 @@ def thread(category, thread_id):
         content = request.form['content']
         image = request.files['image']
         email = request.form['email']
-        if allowed_image(image.filename):
-            filename = secure_filename(image.filename)
-            create_comment(content, filename, email, thread_result.id)
-            image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))  
+        if len(content) > 200 or len(content) == 0:
+            message = "ERROR: Character limit exceeded"
         else:
-            create_comment(content, 'default.jpg', email, thread_result.id)
-        update_reply_count(thread_id)               
-        return redirect(url_for('thread', category=category, thread_id=thread_id))
-    return render_template('thread.html', category=category_result, thread=thread_result, comments=comments)
+            if allowed_image(image.filename):
+                filename = secure_filename(image.filename)
+                create_comment(content, filename, email, thread_result.id)
+                image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))  
+            else:
+                create_comment(content, 'default.jpg', email, thread_result.id)
+            update_reply_count(thread_id)               
+            return redirect(url_for('thread', category=category, thread_id=thread_id))
+    return render_template('thread.html', category=category_result, thread=thread_result, comments=comments, message=message)
 
 def fetch_system():
     python_version = sys.version
