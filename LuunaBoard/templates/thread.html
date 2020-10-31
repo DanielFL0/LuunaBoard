@@ -67,12 +67,21 @@
           </li>
         {% endfor %}
       </ul>
+      <!--POST Message-->
+      {% if message %}
+        <div class="d-flex justify-content-center">
+          <div class="alert alert-primary" role="alert">
+              {{ message }}
+          </div>
+        </div>
+      {% endif %}
       <!--Form-->
       <div class="d-flex justify-content-center">
         <form method="post" enctype="multipart/form-data">
           <div class="form-group">
             <label for="exampleFormControlInput1">Comment</label>
             <input type="text" class="form-control" name="content" id="content" required>
+            <small id="emailHelp" class="form-text text-muted">Limit: 200 characters</small>
           </div>
           <div class="form-group">
             <label for="exampleFormControlFile1">Choose a file</label>
