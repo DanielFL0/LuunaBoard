@@ -61,7 +61,7 @@
             <img src="{{ url_for('static', filename='media/' + comment.image) }}" class="img-thumbnail" alt="image" width="150" height="150">
             <div class="media-body pl-3">
                 <strong>ID: </strong>{{ comment.id }}<br>
-                {{ comment.content}}<br>
+                {{ comment.content|safe }}<br>
                 Date published: {{ comment.date_posted }}
             </div>
           </li>
