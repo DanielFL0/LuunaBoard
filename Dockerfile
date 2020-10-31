@@ -1,6 +1,6 @@
 FROM centos:8
 
-RUN dnf install python38 -y
+RUN dnf install python38 nginx -y 
 
 WORKDIR /LuunaBoard
 
