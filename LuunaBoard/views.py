@@ -8,6 +8,11 @@ from LuunaBoard import db
 from LuunaBoard.models import Category, Thread, Comment
 from LuunaBoard.config import ALLOWED_EXTENSIONS
 
+@app.errorhandler(404)
+def error(e):
+    categories = Category.query.all()
+    return render_template('404.html'), 404
+
 @app.route('/')
 def home():
     threads = Thread.query.all()[-10:]
@@ -40,8 +45,9 @@ def board(category):
         content = request.form['content']
         image = request.files['image']
         if allowed_image(image.filename):
-            create_thread(title, content, image.filename, category_result.id)
-            image.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(image.filename)))
+            filename = secure_filename(image.filename)
+            create_thread(title, content, filename, category_result.id)
+            image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         else:
             create_thread(title, content, 'default.jpg', category_result.id)
         return redirect(url_for('board', category=category))
@@ -69,8 +75,9 @@ def thread(category, thread_id):
         image = request.files['image']
         email = request.form['email']
         if allowed_image(image.filename):
-            create_comment(content, image.filename, email, thread_result.id)
-            image.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(image.filename)))  
+            filename = secure_filename(image.filename)
+            create_comment(content, filename, email, thread_result.id)
+            image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))  
         else:
             create_comment(content, 'default.jpg', email, thread_result.id)
         update_reply_count(thread_id)               
