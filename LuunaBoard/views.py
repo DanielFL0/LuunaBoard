@@ -92,10 +92,18 @@ def thread(category, thread_id):
             return redirect(url_for('thread', category=category, thread_id=thread_id))
     return render_template('thread.html', category=category_result, thread=thread_result, comments=comments, message=message)
 
+@app.route('/board/<int:category>/archive')
+def archive(category):
+    category_result = Category.query.filter_by(id=category).first()
+    threads = Thread.query.filter_by(category_id=category_result.id).all()[-100:]
+    threads = threads[::-1]
+    return render_template('archive.html', category=category_result, threads=threads)
+
 def fetch_system():
     python_version = sys.version
+    system = platform.system()
     operating_system = platform.platform()
-    return python_version, operating_system
+    return python_version, "{}: {}".format(system, operating_system)
 
 @app.route('/about')
 def about():
