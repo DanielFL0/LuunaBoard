@@ -41,7 +41,11 @@
           <li class="breadcrumb-item"><a href="{{ url_for('categories') }}">Categories</a></li>
           <li class="breadcrumb-item active" aria-current="page">{{ category.name }}</li>
         </ol>
-      </nav>     
+      </nav>
+      <!--Archive-->
+      <div class="d-flex justify-content-end">
+        <a class="btn btn-primary" href="{{ url_for('archive', category=category.id) }}" role="button">Archive</a>
+      </div>     
       <!--Thread display-->
       <div class="d-flex flex-row justify-content-center flex-wrap">
         {% if threads %}
