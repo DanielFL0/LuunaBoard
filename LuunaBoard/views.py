@@ -9,9 +9,12 @@ from LuunaBoard.models import Category, Thread, Comment
 from LuunaBoard.config import ALLOWED_EXTENSIONS
 
 @app.errorhandler(404)
-def error(e):
-    categories = Category.query.all()
+def error_404(e):
     return render_template('404.html'), 404
+
+@app.errorhandler(500)
+def error_500(e):
+    return render_template('404.html'), 500
 
 @app.route('/')
 def home():
