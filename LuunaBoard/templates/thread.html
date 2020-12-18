@@ -1,58 +1,62 @@
 {% extends 'layout.html' %}
 {% block title %}{{ thread.title }}{% endblock %}
 {% block content %}
-<!--Thread path-->
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="{{ url_for('categories') }}">Categories</a></li>
-    <li class="breadcrumb-item"><a href="{{ url_for('board', category=category.id) }}">{{ category.name }}</a></li>
-    <li class="breadcrumb-item active" aria-current="page">{{ thread.title }}</li>
-  </ol>
-</nav>
-<!--Thread display-->
-<ul class="list-unstyled">
-  <li class="media" style="background-color: #e3f2fd;">
-    <img src="{{ url_for('static', filename='media/' + thread.image) }}" class="img-thumbnail" alt="image" width="150"
-      height="150">
-    <div class="media-body pl-3">
-      <h5 class="mt-0 mb-1">{{ thread.title }}</h5>
-      {{ thread.content}}<br>
-      Date published: {{ thread.date_posted}}
-    </div>
-  </li>
-</ul>
-<!--Comment display-->
-<ul class="list-unstyled">
-  {% for comment in comments %}
-  <li class="media" style="background-color: #e3f2fd;">
-    <img src="{{ url_for('static', filename='media/' + comment.image) }}" class="img-thumbnail" alt="image" width="150"
-      height="150">
-    <div class="media-body pl-3">
-      <strong>ID: </strong>{{ comment.id }}<br>
-      {{ comment.content}}<br>
-      Date published: {{ comment.date_posted }}
-    </div>
-  </li>
-  {% endfor %}
-</ul>
-<!--Form-->
-<div class="d-flex justify-content-center">
-  <form method="post" enctype="multipart/form-data">
-    <div class="form-group">
-      <label for="exampleFormControlInput1">Comment</label>
-      <input type="text" class="form-control" name="content" id="content" required>
-    </div>
-    <div class="form-group">
-      <label for="exampleFormControlFile1">Choose a file</label>
-      <input type="file" class="form-control-file" name="image" id="image">
-    </div>
-    <div class="form-group">
-      <label for="exampleInputEmail1">Email address</label>
-      <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp">
-      <small id="emailHelp" class="form-text text-muted">You can leave this empty if you don't want to share your email
-        address</small>
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-  </form>
-</div>
+<body style="background-color: #11100f;">
+  <!--Thread path-->
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb" style="background-color: #11100f;">
+      <li class="breadcrumb-item"><a href="{{ url_for('categories') }}" style="color: #09f9a9;">Categories</a></li>
+      <li class="breadcrumb-item"><a href="{{ url_for('board', category=category.id) }}"
+          style="color: #09f9a9;">{{ category.name }}</a></li>
+      <li class="breadcrumb-item" style="color: #2fb78a;">{{ thread.title }}</li>
+    </ol>
+  </nav>
+  <!--Thread display-->
+  <ul class="list-unstyled text-white">
+    <li class="media bg-dark">
+      <img src="{{ url_for('static', filename='media/' + thread.image) }}" class="img-thumbnail" alt="image" width="150"
+        height="150">
+      <div class="media-body pl-3">
+        <h5 class="mt-0 mb-1">{{ thread.title }}</h5>
+        {{ thread.content}}<br>
+        Date published: {{ thread.date_posted}}
+      </div>
+    </li>
+  </ul>
+  <!--Comment display-->
+  <ul class="list-unstyled text-white">
+    {% for comment in comments %}
+    <li class="media bg-dark">
+      <img src="{{ url_for('static', filename='media/' + comment.image) }}" class="img-thumbnail" alt="image"
+        width="150" height="150">
+      <div class="media-body pl-3">
+        <strong>ID: </strong>{{ comment.id }}<br>
+        {{ comment.content}}<br>
+        Date published: {{ comment.date_posted }}
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+  <!--Form-->
+  <div class="d-flex justify-content-center text-white">
+    <form method="post" enctype="multipart/form-data">
+      <div class="form-group">
+        <label for="exampleFormControlInput1">Comment</label>
+        <input type="text" class="form-control" name="content" id="content" required>
+      </div>
+      <div class="form-group">
+        <label for="exampleFormControlFile1">Choose a file</label>
+        <input type="file" class="form-control-file" name="image" id="image">
+      </div>
+      <div class="form-group">
+        <label for="exampleInputEmail1">Email address</label>
+        <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp">
+        <small id="emailHelp" class="form-text text-muted">You can leave this empty if you don't want to share your
+          email
+          address</small>
+      </div>
+      <button type="submit" class="btn text-white" style="background-color: #09f9a9;">Submit</button>
+    </form>
+  </div>
+</body>
 {% endblock %}
