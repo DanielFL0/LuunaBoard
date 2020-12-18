@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 {% block title %}{{ category.name }}{% endblock %}
 {% block content %}
-<div style="background-color: #11100f;">
+<body style="background-color: #11100f;">
   <!--Thread path-->
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb" style="background-color: #11100f;">
@@ -10,7 +10,7 @@
     </ol>
   </nav>
   <!--Thread display-->
-  <div class="d-flex flex-row justify-content-center flex-wrap">
+  <div class="d-flex flex-row justify-content-center flex-wrap text-white">
     {% if threads %}
     {% for thread in threads %}
     <div class="card bg-dark" style="width: 12rem;">
@@ -34,7 +34,7 @@
     {% endif %}
   </div>
   <!--Form-->
-  <div class="d-flex justify-content-center">
+  <div class="d-flex justify-content-center text-white">
     <form method="post" enctype="multipart/form-data">
       <div class="form-group">
         <label for="exampleFormControlInput1">Thread title</label>
@@ -51,5 +51,5 @@
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
   </div>
-</div>
+</body>
 {% endblock %}
