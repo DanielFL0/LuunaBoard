@@ -9,6 +9,10 @@
       <li class="breadcrumb-item" style="color: #2fb78a;">{{ category.name }}</li>
     </ol>
   </nav>
+  <!--Archive-->
+  <div class="d-flex justify-content-end">
+    <a class="btn" href="{{ url_for('archive', category=category.id) }}" role="button" style="background-color: #09f9a9;">Archive</a>
+  </div>
   <!--Thread display-->
   <div class="d-flex flex-row justify-content-center flex-wrap text-white">
     {% if threads %}
@@ -48,7 +52,7 @@
         <label for="exampleFormControlFile1">Choose a file</label>
         <input type="file" class="form-control-file" name="image" id="image">
       </div>
-      <button type="submit" class="btn text-white" style="background-color: #09f9a9;">Submit</button>
+      <button type="submit" class="btn" style="background-color: #09f9a9;">Submit</button>
     </form>
   </div>
 </body>
