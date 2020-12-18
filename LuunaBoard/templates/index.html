@@ -1,30 +1,33 @@
 {% extends 'layout.html' %}
 {% block title %}Home{% endblock %}
 {% block content %}
-
-<div class="jumbotron jumbotron-fluid"
-  style="background-image: url({{ url_for('static', filename='media/background_test2.jpg') }});">
-  <div class="container">
-    <h1 class="display-4" style="color: white;">Home</h1>
-    <p class="lead" style="color: white;">Welcome to Luuna.org!</p>
-  </div>
-</div>
-<!--Template-->
-<div class="d-flex justify-content-center">
-  <div class="list-group w-50 p-1">
-    {% if threads %}
-    <a href="#" class="list-group-item list-group-item-action disabled" style="background-color: #e3f2fd;">Latest
-      threads</a>
-    {% for thread in threads%}
-    <a href="{{ url_for('thread', category=thread.category_id, thread_id=thread.id) }}"
-      class="list-group-item list-group-item-action">{{ thread.title }}<span
-        class="badge badge-primary">{{ thread.replies }}</span></a>
-    {% endfor %}
-    {% else %}
-    <div class="alert alert-danger" role="alert">
-      No threads available!
+<body style="background-color: #11100f;">
+  <div class="jumbotron jumbotron-fluid"
+    style="background-image: url({{ url_for('static', filename='media/background_test2.jpg') }});">
+    <div class="container">
+      <h1 class="display-4" style="color: white;">Home</h1>
+      <p class="lead" style="color: white;">Welcome to Luuna.org!</p>
     </div>
-    {% endif %}
   </div>
-</div>
+  <!--Template-->
+  <div class="d-flex justify-content-center">
+    <div class="list-group w-50 p-1">
+      {% if threads %}
+      <a class="list-group-item list-group-item-action text-white" style="background-color: #09f9a9;">Latest
+        threads</a>
+      {% for thread in threads%}
+      <div class="d-flex justify-content-between">
+        <a href="{{ url_for('thread', category=thread.category_id, thread_id=thread.id) }}"
+        class="list-group-item list-group-item-action bg-dark text-white">{{ thread.title }} <span
+          class="badge badge-primary" style="background-color: #09f9a9;">{{ thread.replies }}</span></a>
+      </div>  
+      {% endfor %}
+      {% else %}
+      <div class="alert alert-danger" role="alert">
+        No threads available!
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</body>
 {% endblock %}
