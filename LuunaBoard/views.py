@@ -7,6 +7,7 @@ from werkzeug.utils import secure_filename
 from LuunaBoard import db
 from LuunaBoard.models import Category, Thread, Comment
 from LuunaBoard.config import ALLOWED_EXTENSIONS
+<<<<<<< HEAD
 
 @app.errorhandler(404)
 def error_404(e):
@@ -15,6 +16,8 @@ def error_404(e):
 @app.errorhandler(500)
 def error_500(e):
     return render_template('404.html'), 500
+=======
+>>>>>>> develop
 
 @app.route('/')
 def home():
@@ -48,8 +51,14 @@ def board(category):
         title = request.form['title']
         content = request.form['content']
         image = request.files['image']
+<<<<<<< HEAD
         if len(title) > 50 or len(content) > 200:
             message = "ERROR: Character limit exceeded"
+=======
+        if allowed_image(image.filename):
+            create_thread(title, content, image.filename, category_result.id)
+            image.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(image.filename)))
+>>>>>>> develop
         else:
             if allowed_image(image.filename):
                 filename = secure_filename(image.filename)
@@ -82,8 +91,14 @@ def thread(category, thread_id):
         content = request.form['content']
         image = request.files['image']
         email = request.form['email']
+<<<<<<< HEAD
         if len(content) > 200 or len(content) == 0:
             message = "ERROR: Character limit exceeded"
+=======
+        if allowed_image(image.filename):
+            create_comment(content, image.filename, email, thread_result.id)
+            image.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(image.filename)))  
+>>>>>>> develop
         else:
             if allowed_image(image.filename):
                 filename = secure_filename(image.filename)
