@@ -6,7 +6,7 @@
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb" style="background-color: #11100f;">
       <li class="breadcrumb-item"><a href="{{ url_for('categories') }}" style="color: #09f9a9;">Categories</a></li>
-      <li class="breadcrumb-item"><a href="{{ url_for('board', category=category.id) }}"
+      <li class="breadcrumb-item"><a href="{{ url_for('board', category_id=category.id) }}"
           style="color: #09f9a9;">{{ category.name }}</a></li>
       <li class="breadcrumb-item" style="color: #2fb78a;">{{ thread.title }}</li>
     </ol>
