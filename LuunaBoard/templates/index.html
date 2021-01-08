@@ -17,9 +17,9 @@
         threads</a>
       {% for thread in threads%}
       <div class="d-flex justify-content-between">
-        <a href="{{ url_for('thread', category=thread.category_id, thread_id=thread.id) }}"
+        <a href="{{ url_for('thread', category_id=thread.category_id, thread_id=thread.id) }}"
         class="list-group-item list-group-item-action bg-dark text-white">{{ thread.title }} <span
-          class="badge badge-primary" style="background-color: #09f9a9;">{{ thread.replies }}</span></a>
+          class="badge badge-primary" style="color: #11100f; background-color: #09f9a9;">{{ thread.replies }}</span></a>
       </div>  
       {% endfor %}
       {% else %}
