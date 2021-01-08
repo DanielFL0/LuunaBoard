@@ -11,7 +11,7 @@
   </nav>
   <!--Archive-->
   <div class="d-flex justify-content-end">
-    <a class="btn" href="{{ url_for('archive', category=category.id) }}" role="button" style="background-color: #09f9a9;">Archive</a>
+    <a class="btn" href="{{ url_for('archive', category_id=category.id) }}" role="button" style="background-color: #09f9a9;">Archive</a>
   </div>
   <!--Thread display-->
   <div class="d-flex flex-row justify-content-center flex-wrap text-white">
@@ -22,7 +22,7 @@
         width="286" height="180">
       <div class="card-body">
         <h6 class="mt-0 mb-1"><a
-            href="{{ url_for('thread', category=thread.category_id, thread_id=thread.id) }}" style="color: #09f9a9;">{{ thread.title }}</a></h6>
+            href="{{ url_for('thread', category_id=thread.category_id, thread_id=thread.id) }}" style="color: #09f9a9;">{{ thread.title }}</a></h6>
         <p class="card-text">
           {{ thread.content}}<br>
           <strong>Replies: </strong>{{ thread.replies }}<br>
