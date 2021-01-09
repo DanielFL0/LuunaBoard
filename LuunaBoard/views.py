@@ -39,8 +39,8 @@ def board(category_id):
         else:
             if utils.allowed_image(image.filename):
                 filename = secure_filename(image.filename)
-                db_methods.create_thread(title, content, filename, category_result.id)
                 image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                db_methods.create_thread(title, content, filename, category_result.id)
             else:
                 db_methods.create_thread(title, content, 'default.jpg', category_result.id)
             return redirect(url_for('board', category_id=category_id))
