@@ -16,7 +16,7 @@
       style="background-color: #09f9a9;">Categories</a>
       {% if categories %}
       {% for category in categories %}
-      <a href="{{ url_for('board', category=category.id) }}"
+      <a href="{{ url_for('board', category_id=category.id) }}"
         class="list-group-item list-group-item-action bg-dark text-white">{{ category.name }}</a>
       {% endfor %}
       {% else %}

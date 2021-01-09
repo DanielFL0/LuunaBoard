@@ -6,7 +6,7 @@
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb" style="background-color: #11100f;">
       <li class="breadcrumb-item"><a href="{{ url_for('categories') }}" style="color: #09f9a9;">Categories</a></li>
-      <li class="breadcrumb-item"><a href="{{ url_for('board', category=category.id) }}" style="color: #09f9a9;">{{ category.name }}</a></li>
+      <li class="breadcrumb-item"><a href="{{ url_for('board', category_id=category.id) }}" style="color: #09f9a9;">{{ category.name }}</a></li>
       <li class="breadcrumb-item" style="color: #2fb78a;">Archive</li>
     </ol>
   </nav>
@@ -16,7 +16,7 @@
       <a class="list-group-item list-group-item-action text-white" style="background-color: #09f9a9;">Threads</a>
       {% if threads %}
       {% for thread in threads%}
-      <a href="{{ url_for('thread', category=category.id, thread_id=thread.id) }}"
+      <a href="{{ url_for('thread', category_id=category.id, thread_id=thread.id) }}"
         class="list-group-item list-group-item-action bg-dark text-white">{{ thread.title }}</a>
       {% endfor %}
       {% else %}

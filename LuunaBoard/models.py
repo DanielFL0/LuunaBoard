@@ -3,6 +3,9 @@ from LuunaBoard import db
 from flask_sqlalchemy import SQLAlchemy
 
 class Category(db.Model):
+    """
+    Class for defining a board category model.
+    """
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), unique=True, nullable=False)
     thread_category = db.relationship('Thread', backref='Category', lazy=True)
@@ -11,6 +14,9 @@ class Category(db.Model):
         return "<Category %r>" % self.name
 
 class Thread(db.Model):
+    """
+    Class for defining a thread model.
+    """
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(50), unique=False, nullable=False)
     content = db.Column(db.String(200), unique=False, nullable=False)
@@ -24,6 +30,9 @@ class Thread(db.Model):
         return "<Thread %r>" % self.title
 
 class Comment(db.Model):
+    """
+    Class for defining a comment model.
+    """
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.String(200), unique=False, nullable=False)
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
